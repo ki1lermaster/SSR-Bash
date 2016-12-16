@@ -38,7 +38,7 @@ cd ../ && rm -rf libsodium*
 #Install ssr-chkconfig
 wget -N --no-check-certificate -O /etc/init.d/shadowsocksr https://raw.githubusercontent.com/FunctionClub/SSR-Bash/master/ssr-chkconfig
 chmod +x /etc/init.d/shadowsocksr
-update-rc.d -f shadowsocks defaults
+update-rc.d -f shadowsocksr defaults
 
 #Install Softlink
 wget -N --no-check-certificate -O /usr/local/bin/ssr https://raw.githubusercontent.com/FunctionClub/SSR-Bash/master/ssr
