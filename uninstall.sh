@@ -7,4 +7,6 @@ bash /usr/local/SSR-Bash/ssadmin.sh stop
 rm -rf /usr/local/SSR-Bash/
 rm -rf /usr/local/shadowsocks
 rm -rf /usr/local/bin/ssr
+rm -rf /etc/init.d/shadowsocksr
+update-rc.d -f shadowsocksr remove
 echo '卸载成功！'
