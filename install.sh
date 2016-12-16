@@ -18,14 +18,9 @@ clear
 
 #InstallBasicPackages
 apt-get update -y
-apt-get install git tar python-pip unzip bc python-m2crypto curl wget unzip gcc swig automake make perl cpio build-essential ntpdate -y
+apt-get install git tar python unzip bc python-m2crypto curl wget unzip gcc swig automake make perl cpio build-essential -y
 apt-get install language-pack-zh-hans -y
-pip install shadowsocks
 
-#Set Time Zone
-rm -rf /etc/localtime
-ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-ntpdate 1.cn.pool.ntp.org
 
 #Clone Something
 cd /usr/local
@@ -40,7 +35,12 @@ tar -xf libsodium-1.0.10.tar.gz && cd libsodium-1.0.10
 echo "/usr/local/lib" > /etc/ld.so.conf.d/local.conf && ldconfig
 cd ../ && rm -rf libsodium* 
 
- #Install Softlink
+#Install ssr-chkconfig
+wget -N --no-check-certificate -O /etc/init.d/shadowsocksr https://raw.githubusercontent.com/FunctionClub/SSR-Bash/master/ssr-chkconfig
+chmod +x /etc/init.d/shadowsocksr
+update-rc.d -f shadowsocks defaults
+
+#Install Softlink
 wget -N --no-check-certificate -O /usr/local/bin/ssr https://raw.githubusercontent.com/FunctionClub/SSR-Bash/master/ssr
 chmod +x /usr/local/bin/ssr
 
