@@ -343,7 +343,7 @@ if [[ $choice == 2 ]];then
 	userchoice
 	while :; do echo
 		read -p "请选择： " uchoice
-		if [[ ! $uchoice =~ ^[1-5]$ ]]; then
+		if [[ ! $uchoice =~ ^[1-6]$ ]]; then
 			echo "${CWARNING}输入错误! 请输入正确的数字!${CEND}"
 		else
 			break
