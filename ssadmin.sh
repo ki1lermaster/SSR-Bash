@@ -232,11 +232,8 @@ $PORT $PWORD $TLIMIT" >> $USER_FILE;
 }
 add_user_more () {
 pport=$1
-until [[ $4 -lt 0 ]];do
-	if [ "$#" -ne 3 ]; then
-			wrong_para_prompt;
-			return 1
-		fi
+num=$4
+until [[ $num -lt 0 ]];do
 		PORT=$pport
 		if check_port_range $PORT; then
 			:
@@ -272,7 +269,7 @@ until [[ $4 -lt 0 ]];do
 		update_or_create_traffic_file_from_users
 		calc_remaining
 	((num—));
-	((pport—));
+	((pport+));
 	done; 
 	stop_ss
 	start_ss
