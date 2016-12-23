@@ -265,12 +265,14 @@ until [ $var -le 1 ];do
 	# 重新生成配置文件，并加载
 			create_json
 			add_rules $PORT
-	# 更新流量记录文件
-		update_or_create_traffic_file_from_users
-		calc_remaining
+	
+		
 	var=$(($var - 1))
 	pport=$(($pport + 1))
 	done; 
+	# 更新流量记录文件
+	update_or_create_traffic_file_from_users
+	calc_remaining
 	stop_ss
 	start_ss
 }
