@@ -451,7 +451,7 @@ if [[ $choice == 3 ]];then
 	fi	
 fi
 
-if [[ $choice == 3 ]];then
+if [[ $choice == 4 ]];then
 	upgradechoice
 	while :; do echo
 		read -p "请选择： " upgradeselect
@@ -461,11 +461,7 @@ if [[ $choice == 3 ]];then
 			break
 		fi
 	done
-#	echo '1.升级 SSR-Bash 到最新稳定版本'
-#	echo '3.升级 ShadowsocksR'
-#	echo '4.升级依赖库'
-#	echo '5.使用自定义包进行更新'
-#	echo ''
+
 	if [[ $upgradeselect == 1 ]];then
 	rm -rf /usr/local/bin/ssr
 	cd /usr/local
