@@ -234,42 +234,40 @@ add_user_more () {
 pport=$1
 var=$4
 until [ $var -le 1 ];do
-		PORT=$pport
-		if check_port_range $PORT; then
-			:
-		else
-			wrong_para_prompt;
-			return 1
-		fi
-		PWORD=$2
-		TLIMIT=$3
-		TLIMIT=`bytes2gb $TLIMIT`
-		if [ ! -e $USER_FILE ]; then
-        echo "\
+	PORT=$pport
+	if check_port_range $PORT; then
+		:
+	else
+		wrong_para_prompt;
+		return 1
+	fi
+	PWORD=$2
+	TLIMIT=$3
+	TLIMIT=`bytes2gb $TLIMIT`
+	if [ ! -e $USER_FILE ]; then
+    echo "\
 	# 以空格、制表符分隔
 	# 端口 密码 流量限制
 	# 2345 abcde 1000000" > $USER_FILE;
-		fi
-		cat $USER_FILE |
-		awk '
-		{
-			if($1=='$PORT') exit 1
-		}'
-		if [ $? -eq 0 ]; then
-			echo "\
+	fi
+	cat $USER_FILE |
+	awk '
+	{
+		if($1=='$PORT') exit 1
+	}'
+	if [ $? -eq 0 ]; then
+		echo "\
 	$PORT $PWORD $TLIMIT" >> $USER_FILE;
 		else
-			echo "用户已存在!"
-			return 1
-		fi
+		echo "用户已存在!"
+		return 1
+	fi
 	# 重新生成配置文件，并加载
-			create_json
-			add_rules $PORT
-	
-		
-		var=$(($var - 1))
-		pport=$(($pport + 1))
-	done; 
+	create_json
+	add_rules $PORT
+	var=$(($var - 1))
+	pport=$(($pport + 1))
+done; 
 	# 更新流量记录文件
 	update_or_create_traffic_file_from_users
 	calc_remaining
