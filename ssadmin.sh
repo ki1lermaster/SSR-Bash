@@ -232,8 +232,8 @@ $PORT $PWORD $TLIMIT" >> $USER_FILE;
 }
 add_user_more () {
 pport=$1
-num=$4
-until [[ $num -lt 0 ]];do
+var=$4
+until [ $var -le 1 ];do
 		PORT=$pport
 		if check_port_range $PORT; then
 			:
@@ -268,8 +268,8 @@ until [[ $num -lt 0 ]];do
 	# 更新流量记录文件
 		update_or_create_traffic_file_from_users
 		calc_remaining
-	((num—));
-	((pport+));
+	var=$(($var - 1))
+	pport=$(($pport + 1))
 	done; 
 	stop_ss
 	start_ss
