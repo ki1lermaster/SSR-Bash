@@ -230,7 +230,52 @@ $PORT $PWORD $TLIMIT" >> $USER_FILE;
     update_or_create_traffic_file_from_users
     calc_remaining
 }
-
+add_user_more () {
+until [[ $num -lt 0 ]];do
+	if [ "$#" -ne 3 ]; then
+			wrong_para_prompt;
+			return 1
+		fi
+		PORT=$pport
+		if check_port_range $PORT; then
+			:
+		else
+			wrong_para_prompt;
+			return 1
+		fi
+		PWORD=$pw
+		TLIMIT=$ll
+		TLIMIT=`bytes2gb $TLIMIT`
+		if [ ! -e $USER_FILE ]; then
+        echo "\
+	# 以空格、制表符分隔
+	# 端口 密码 流量限制
+	# 2345 abcde 1000000" > $USER_FILE;
+		fi
+		cat $USER_FILE |
+		awk '
+		{
+			if($1=='$PORT') exit 1
+		}'
+		if [ $? -eq 0 ]; then
+			echo "\
+	$PORT $PWORD $TLIMIT" >> $USER_FILE;
+		else
+			echo "用户已存在!"
+			return 1
+		fi
+	# 重新生成配置文件，并加载
+			create_json
+			add_rules $PORT
+	# 更新流量记录文件
+		update_or_create_traffic_file_from_users
+		calc_remaining
+	((num—));
+	((pport—));
+	done; 
+	stop_ss
+	start_ss
+}
 del_user () {
 	if [ ! -e $USER_FILE ]; then
         echo "还没有用户，请先添加一个用户"
@@ -587,7 +632,7 @@ case $1 in
         exit 0;
         ;;
     -v|v|version )
-        echo 'ssr-bash Version 1.0-beta1, 2016-12-6, Copyright (c) 2014 hellofwy Modified by FunctionClub'
+        echo 'ssr-bash Version 1.0-beta1, 2016-12-6, Copyright (c) 2014-2016 hellofwy Modified by FunctionClub'
         exit 0;
         ;;
 esac
@@ -600,6 +645,10 @@ case $1 in
         shift
         add_user $1 $2 $3
         ;;
+	addmore )
+		shift
+		add_user_more $start $pw $ll $num 
+		;;
     del )
         shift
         del_user $1
