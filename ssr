@@ -79,6 +79,7 @@ function serverchoice(){
 	echo '3.重启服务'
 	echo '4.服务状态'
 	echo '5.修改加密、协议、混淆方式'
+	echo '6.修改 DNS'
 	echo ''
 }
 
@@ -105,7 +106,8 @@ function bandchoice(){
 function upgradechoice(){
 	echo '1.升级 SSR-Bash'
 	echo '2.升级 ShadowsocksR'
-	echo '3.升级依赖库'
+	echo '3.切换到特定版本'
+	echo '4.升级依赖库'
 	echo ''
 }
 
@@ -133,7 +135,7 @@ if [[ $choice == 1 ]];then
 
 	while :; do echo
 		read -p "请选择： " schoice
-		if [[ ! $schoice =~ ^[1-5]$ ]]; then
+		if [[ ! $schoice =~ ^[1-6]$ ]]; then
 			echo "${CWARNING}输入错误! 请输入正确的数字!${CEND}"
 		else
 			break	
@@ -342,6 +344,12 @@ if [[ $choice == 1 ]];then
 		echo "当前混淆：${obfs}"
 
 	fi
+	if [[ $schoice == 6 ]];then
+	read -p "输入主要 DNS 服务器: " ifdns1
+	read -p "输入次要 DNS 服务器: " ifdns2
+	echo "nameserver $ifdns1" > /etc/resolv.conf
+	echo "nameserver $ifdns2" >> /etc/resolv.conf
+	echo 'DNS 服务器已设置为  $ifdns1 $ifdns2'
 fi
 
 
@@ -455,7 +463,7 @@ if [[ $choice == 4 ]];then
 	upgradechoice
 	while :; do echo
 		read -p "请选择： " upgradeselect
-		if [[ ! $upgradeselect =~ ^[1-3]$ ]]; then
+		if [[ ! $upgradeselect =~ ^[1-4]$ ]]; then
 			echo "${CWARNING}输入错误! 请输入正确的数字!${CEND}"
 		else
 			break
@@ -478,12 +486,25 @@ if [[ $choice == 4 ]];then
 	fi
 	
 	if [[ $upgradeselect == 3 ]];then
-		read -p "输入更新分支： " upgradeadd
+	read -p "输入更新到分支： " upgradeadd
 	rm -rf /usr/local/bin/ssr
 	cd /usr/local
 	rm -rf SSR-Bash
 	git clone -b $upgradeadd https://github.com/FunctionClub/SSR-Bash
 	wget -N --no-check-certificate -O /usr/local/bin/ssr https://raw.githubusercontent.com/FunctionClub/SSR-Bash/$upgradeadd/ssr
 	chmod +x /usr/local/bin/ssr
+	fi
+	
+	if [[ $upgradeselect == 4 ]];then
+	apt-get update -y
+	apt-get install git tar python unzip bc python-m2crypto curl wget unzip gcc swig automake make perl cpio build-essential -y
+	apt-get install language-pack-zh-hans -y
+	cd /root
+	wget --no-check-certificate -O libsodium-1.0.10.tar.gz https://github.com/jedisct1/libsodium/releases/download/1.0.10/libsodium-1.0.10.tar.gz
+	tar -xf libsodium-1.0.10.tar.gz && cd libsodium-1.0.10
+	./configure && make && make install
+	echo "/usr/local/lib" > /etc/ld.so.conf.d/local.conf && ldconfig
+	cd ../ && rm -rf libsodium* 
+
 	fi
 fi

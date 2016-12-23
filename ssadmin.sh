@@ -31,7 +31,7 @@ DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 . $DIR/sslib.sh
 
 usage () {
-    cat $DIR/sshelp
+    cat $DIR/README.txt
 }
 wrong_para_prompt() {
     echo "参数输入错误!"
