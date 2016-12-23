@@ -231,7 +231,8 @@ $PORT $PWORD $TLIMIT" >> $USER_FILE;
     calc_remaining
 }
 add_user_more () {
-until [[ $num -lt 0 ]];do
+pport=$1
+until [[ $4 -lt 0 ]];do
 	if [ "$#" -ne 3 ]; then
 			wrong_para_prompt;
 			return 1
@@ -243,8 +244,8 @@ until [[ $num -lt 0 ]];do
 			wrong_para_prompt;
 			return 1
 		fi
-		PWORD=$pw
-		TLIMIT=$ll
+		PWORD=$2
+		TLIMIT=$3
 		TLIMIT=`bytes2gb $TLIMIT`
 		if [ ! -e $USER_FILE ]; then
         echo "\
@@ -647,7 +648,7 @@ case $1 in
         ;;
 	addmore )
 		shift
-		add_user_more $start $pw $ll $num 
+		add_user_more $1 $2 $3 $4 
 		;;
     del )
         shift
