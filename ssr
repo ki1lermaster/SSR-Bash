@@ -386,7 +386,7 @@ if [[ $choice == 2 ]];then
 	read -p "请输入新用户端口的密码： " newpassword
 	read -p "请输入新用户流量限制（例如 10G, 500M）： " newlimit
 	read -p "请输入添加用户数量： " usernum
-	bash /usr/local/SSR-Bash/ssadmin.sh add $startport $newpassword $newlimit $usernum
+	bash /usr/local/SSR-Bash/ssadmin.sh addmore $startport $newpassword $newlimit $usernum
 	echo ''
 	echo "起始端口为 $startport ，数量为$usernum，密码为 $newpassword 流量限制为 $newlimit 的用户已添加成功！"
 	fi

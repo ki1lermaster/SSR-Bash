@@ -267,8 +267,8 @@ until [ $var -le 1 ];do
 			add_rules $PORT
 	
 		
-	var=$(($var - 1))
-	pport=$(($pport + 1))
+		var=$(($var - 1))
+		pport=$(($pport + 1))
 	done; 
 	# 更新流量记录文件
 	update_or_create_traffic_file_from_users
