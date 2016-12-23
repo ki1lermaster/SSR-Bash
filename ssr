@@ -69,6 +69,7 @@ function showchoice(){
 	echo '1.服务管理'
 	echo '2.用户管理'
 	echo '3.流量控制'
+	echo '4.程序升级'
 	echo ''
 }
 
@@ -101,6 +102,12 @@ function bandchoice(){
 	echo '7.显示已添加的iptables规则'
 	echo ''
 }
+function upgradechoice(){
+	echo '1.升级 SSR-Bash'
+	echo '2.升级 ShadowsocksR'
+	echo '3.升级依赖库'
+	echo ''
+}
 
 
 #Main
@@ -113,7 +120,7 @@ while :; do echo
 
 	read -p "请选择： " choice
 
-	if [[ ! $choice =~ ^[1-3]$ ]]; then
+	if [[ ! $choice =~ ^[1-4]$ ]]; then
 		echo "${CWARNING}输入错误! 请输入正确的数字!${CEND}"
 	else
 		break	
@@ -442,4 +449,45 @@ if [[ $choice == 3 ]];then
 	if [[ $bchoice == 7 ]];then
 		bash /usr/local/SSR-Bash/ssadmin.sh lrules
 	fi	
+fi
+
+if [[ $choice == 3 ]];then
+	upgradechoice
+	while :; do echo
+		read -p "请选择： " upgradeselect
+		if [[ ! $upgradeselect =~ ^[1-3]$ ]]; then
+			echo "${CWARNING}输入错误! 请输入正确的数字!${CEND}"
+		else
+			break
+		fi
+	done
+#	echo '1.升级 SSR-Bash 到最新稳定版本'
+#	echo '3.升级 ShadowsocksR'
+#	echo '4.升级依赖库'
+#	echo '5.使用自定义包进行更新'
+#	echo ''
+	if [[ $upgradeselect == 1 ]];then
+	rm -rf /usr/local/bin/ssr
+	cd /usr/local
+	rm -rf SSR-Bash
+	git clone https://github.com/FunctionClub/SSR-Bash
+	wget -N --no-check-certificate -O /usr/local/bin/ssr https://raw.githubusercontent.com/FunctionClub/SSR-Bash/master/ssr
+	chmod +x /usr/local/bin/ssr
+	fi
+	
+	if [[ $upgradeselect == 2 ]];then
+	cd /usr/local
+	rm -rf shadowsocks
+	git clone https://github.com/breakwa11/shadowsocks
+	fi
+	
+	if [[ $upgradeselect == 3 ]];then
+		read -p "输入更新分支： " upgradeadd
+	rm -rf /usr/local/bin/ssr
+	cd /usr/local
+	rm -rf SSR-Bash
+	git clone -b $upgradeadd https://github.com/FunctionClub/SSR-Bash
+	wget -N --no-check-certificate -O /usr/local/bin/ssr https://raw.githubusercontent.com/FunctionClub/SSR-Bash/$upgradeadd/ssr
+	chmod +x /usr/local/bin/ssr
+	fi
 fi
