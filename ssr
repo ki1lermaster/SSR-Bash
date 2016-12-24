@@ -479,7 +479,7 @@ if [[ $choice == 4 ]];then
 		git clone https://github.com/FunctionClub/SSR-Bash
 		wget -N --no-check-certificate -O /usr/local/bin/ssr https://raw.githubusercontent.com/FunctionClub/SSR-Bash/master/ssr
 		chmod +x /usr/local/bin/ssr
-	fi
+	fi 
 	
 	if [[ $upgradeselect == 2 ]];then
 		cd /usr/local
