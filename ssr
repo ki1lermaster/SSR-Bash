@@ -473,25 +473,43 @@ if [[ $choice == 4 ]];then
 	done
 
 	if [[ $upgradeselect == 1 ]];then
-		bash /usr/local/SSR-Bash/ssadmin.sh upgrade
+		rm -rf /usr/local/bin/ssr
+		cd /usr/local
+		rm -rf SSR-Bash
+		git clone https://github.com/FunctionClub/SSR-Bash
+		wget -N --no-check-certificate -O /usr/local/bin/ssr https://raw.githubusercontent.com/FunctionClub/SSR-Bash/master/ssr
+		chmod +x /usr/local/bin/ssr
 	fi
 	
 	if [[ $upgradeselect == 2 ]];then
-		bash /usr/local/SSR-Bash/ssadmin.sh upgradess
+		cd /usr/local
+		rm -rf shadowsocks
+		git clone https://github.com/breakwa11/shadowsocks
 	fi
 	
 	if [[ $upgradeselect == 3 ]];then
 		read -p "输入更新到分支： " upgradeadd
-		bash /usr/local/SSR-Bash/ssadmin.sh upgradetest $upgradeadd
+		rm -rf /usr/local/bin/ssr
+		cd /usr/local
+		rm -rf SSR-Bash
+		git clone -b $upgradeadd https://github.com/FunctionClub/SSR-Bash
+		wget -N --no-check-certificate -O /usr/local/bin/ssr https://raw.githubusercontent.com/FunctionClub/SSR-Bash/$upgradeadd/ssr
+		chmod +x /usr/local/bin/ssr
 	fi
 	
 	
 	if [[ $upgradeselect == 4 ]];then
-		bash /usr/local/SSR-Bash/ssadmin.sh upgradeback
+		rm -rf /root/ssusers
+		rm -rf /root/sstraffic
+		cp /usr/local/SSR-Bash/ssusers /root/
+		cp /usr/local/SSR-Bash/sstraffic /root/
 	fi
 	
 	if [[ $upgradeselect == 5 ]];then
-		bash /usr/local/SSR-Bash/ssadmin.sh upgraderevoke
+		rm -rf /usr/local/SSR-Bash/ssusers
+		rm -rf /usr/local/SSR-Bash/sstraffic
+		cp /root/ssusers /usr/local/SSR-Bash/ 
+		cp /root/sstraffic /usr/local/SSR-Bash/
 	fi
 	
 fi

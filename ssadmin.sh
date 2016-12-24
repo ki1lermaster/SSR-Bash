@@ -245,19 +245,19 @@ until [ $var -le 1 ];do
 	TLIMIT=$3
 	TLIMIT=`bytes2gb $TLIMIT`
 	if [ ! -e $USER_FILE ]; then
-    echo "\
-	# 以空格、制表符分隔
-	# 端口 密码 流量限制
-	# 2345 abcde 1000000" > $USER_FILE;
+echo "\
+# 以空格、制表符分隔
+# 端口 密码 流量限制
+# 2345 abcde 1000000" > $USER_FILE;
 	fi
 	cat $USER_FILE |
-	awk '
-	{
-		if($1=='$PORT') exit 1
-	}'
+awk '
+{
+	if($1=='$PORT') exit 1
+}'
 	if [ $? -eq 0 ]; then
 		echo "\
-	$PORT $PWORD $TLIMIT" >> $USER_FILE;
+$PORT $PWORD $TLIMIT" >> $USER_FILE;
 		else
 		echo "用户已存在!"
 		return 1
@@ -623,31 +623,16 @@ reset_used () {
 
 
 upgrade_main () {
-	rm -rf /usr/local/bin/ssr
-	cd /usr/local
-	rm -rf SSR-Bash
-	git clone https://github.com/FunctionClub/SSR-Bash
-	wget -N --no-check-certificate -O /usr/local/bin/ssr https://raw.githubusercontent.com/FunctionClub/SSR-Bash/master/ssr
-	chmod +x /usr/local/bin/ssr
+	
 }
 upgrade_ss () {
-	cd /usr/local
-	rm -rf shadowsocks
-	git clone https://github.com/breakwa11/shadowsocks
+	
 }
 upgrade_test () {
-	rm -rf /usr/local/bin/ssr
-	cd /usr/local
-	rm -rf SSR-Bash
-	git clone -b $1 https://github.com/FunctionClub/SSR-Bash
-	wget -N --no-check-certificate -O /usr/local/bin/ssr https://raw.githubusercontent.com/FunctionClub/SSR-Bash/$1/ssr
-	chmod +x /usr/local/bin/ssr
+	
 }
 upgrade_backup () {
-	rm -rf /root/ssusers
-	rm -rf /root/sstraffic
-	cp /usr/local/SSR-Bash/ssusers /root/
-	cp /usr/local/SSR-Bash/sstraffic /root/
+	
 }
 upgrade_revoke () {
 	rm -rf /usr/local/SSR-Bash/ssusers
@@ -757,25 +742,6 @@ case $1 in
     lrules )
         list_rules
         ;;
-	upgrade )
-		upgrade_backup
-		upgrade_main
-		upgrade_revoke
-		;;
-	upgradess )
-		upgrade_ss
-		;;
-	upgradetest )
-		upgrade_backup
-        upgrade_test $1
-		upgrade_revoke
-        ;;
-	upgradeback )
-		upgrade_backup
-		;;
-	upgraderevoke )
-		upgrade_revoke
-		;;
     * )
         usage
         ;;
