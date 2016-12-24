@@ -348,9 +348,9 @@ if [[ $choice == 1 ]];then
 	if [[ $schoice == 6 ]];then
 	read -p "输入主要 DNS 服务器: " ifdns1
 	read -p "输入次要 DNS 服务器: " ifdns2
-	echo "nameserver $ifdns1" > /etc/resolv.conf
-	echo "nameserver $ifdns2" >> /etc/resolv.conf
-	echo 'DNS 服务器已设置为  $ifdns1 $ifdns2'
+	echo "nameserver ${ifdns1}" > /etc/resolv.conf
+	echo "nameserver ${ifdns2}" >> /etc/resolv.conf
+	echo 'DNS 服务器已设置为  ${ifdns1} ${ifdns2}'
 	fi
 fi
 
