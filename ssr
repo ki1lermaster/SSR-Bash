@@ -69,7 +69,7 @@ function showchoice(){
 	echo '1.服务管理'
 	echo '2.用户管理'
 	echo '3.流量控制'
-	echo '4.程序升级'
+	echo '4.备份升级'
 	echo ''
 }
 
@@ -106,8 +106,9 @@ function bandchoice(){
 function upgradechoice(){
 	echo '1.升级 SSR-Bash'
 	echo '2.升级 ShadowsocksR'
-	echo '3.切换到特定版本'
-	echo '4.升级依赖库'
+	echo '3.切换到特定版本'	
+	echo '4.备份配置文件'
+	echo '5.还原配置文件'
 	echo ''
 }
 
@@ -464,7 +465,7 @@ if [[ $choice == 4 ]];then
 	upgradechoice
 	while :; do echo
 		read -p "请选择： " upgradeselect
-		if [[ ! $upgradeselect =~ ^[1-4]$ ]]; then
+		if [[ ! $upgradeselect =~ ^[1-5]$ ]]; then
 			echo "${CWARNING}输入错误! 请输入正确的数字!${CEND}"
 		else
 			break
@@ -472,40 +473,25 @@ if [[ $choice == 4 ]];then
 	done
 
 	if [[ $upgradeselect == 1 ]];then
-	rm -rf /usr/local/bin/ssr
-	cd /usr/local
-	rm -rf SSR-Bash
-	git clone https://github.com/FunctionClub/SSR-Bash
-	wget -N --no-check-certificate -O /usr/local/bin/ssr https://raw.githubusercontent.com/FunctionClub/SSR-Bash/master/ssr
-	chmod +x /usr/local/bin/ssr
+		bash /usr/local/SSR-Bash/ssadmin.sh upgrade
 	fi
 	
 	if [[ $upgradeselect == 2 ]];then
-	cd /usr/local
-	rm -rf shadowsocks
-	git clone https://github.com/breakwa11/shadowsocks
+		bash /usr/local/SSR-Bash/ssadmin.sh upgradess
 	fi
 	
 	if [[ $upgradeselect == 3 ]];then
-	read -p "输入更新到分支： " upgradeadd
-	rm -rf /usr/local/bin/ssr
-	cd /usr/local
-	rm -rf SSR-Bash
-	git clone -b $upgradeadd https://github.com/FunctionClub/SSR-Bash
-	wget -N --no-check-certificate -O /usr/local/bin/ssr https://raw.githubusercontent.com/FunctionClub/SSR-Bash/$upgradeadd/ssr
-	chmod +x /usr/local/bin/ssr
+		read -p "输入更新到分支： " upgradeadd
+		bash /usr/local/SSR-Bash/ssadmin.sh upgradetest $upgradeadd
 	fi
 	
+	
 	if [[ $upgradeselect == 4 ]];then
-	apt-get update -y
-	apt-get install git tar python unzip bc python-m2crypto curl wget unzip gcc swig automake make perl cpio build-essential -y
-	apt-get install language-pack-zh-hans -y
-	cd /root
-	wget --no-check-certificate -O libsodium-1.0.10.tar.gz https://github.com/jedisct1/libsodium/releases/download/1.0.10/libsodium-1.0.10.tar.gz
-	tar -xf libsodium-1.0.10.tar.gz && cd libsodium-1.0.10
-	./configure && make && make install
-	echo "/usr/local/lib" > /etc/ld.so.conf.d/local.conf && ldconfig
-	cd ../ && rm -rf libsodium* 
-
+		bash /usr/local/SSR-Bash/ssadmin.sh upgradeback
 	fi
+	
+	if [[ $upgradeselect == 5 ]];then
+		bash /usr/local/SSR-Bash/ssadmin.sh upgraderevoke
+	fi
+	
 fi

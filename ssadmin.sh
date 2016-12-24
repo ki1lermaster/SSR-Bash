@@ -620,6 +620,44 @@ reset_used () {
     calc_remaining
 }
 
+
+
+upgrade_main () {
+	rm -rf /usr/local/bin/ssr
+	cd /usr/local
+	rm -rf SSR-Bash
+	git clone https://github.com/FunctionClub/SSR-Bash
+	wget -N --no-check-certificate -O /usr/local/bin/ssr https://raw.githubusercontent.com/FunctionClub/SSR-Bash/master/ssr
+	chmod +x /usr/local/bin/ssr
+}
+upgrade_ss () {
+	cd /usr/local
+	rm -rf shadowsocks
+	git clone https://github.com/breakwa11/shadowsocks
+}
+upgrade_test () {
+	rm -rf /usr/local/bin/ssr
+	cd /usr/local
+	rm -rf SSR-Bash
+	git clone -b $1 https://github.com/FunctionClub/SSR-Bash
+	wget -N --no-check-certificate -O /usr/local/bin/ssr https://raw.githubusercontent.com/FunctionClub/SSR-Bash/$1/ssr
+	chmod +x /usr/local/bin/ssr
+}
+upgrade_backup () {
+	rm -rf /root/ssusers
+	rm -rf /root/sstraffic
+	cp /usr/local/SSR-Bash/ssusers /root/
+	cp /usr/local/SSR-Bash/sstraffic /root/
+}
+upgrade_revoke () {
+	rm -rf /usr/local/SSR-Bash/ssusers
+	rm -rf /usr/local/SSR-Bash/sstraffic
+	cp /root/ssusers /usr/local/SSR-Bash/ 
+	cp /root/sstraffic /usr/local/SSR-Bash/
+}
+
+
+
 if [ "$#" -eq 0 ]; then
     usage
     exit 0
@@ -719,6 +757,25 @@ case $1 in
     lrules )
         list_rules
         ;;
+	upgrade )
+		upgrade_backup
+		upgrade_main
+		upgrade_revoke
+		;;
+	upgradess )
+		upgrade_ss
+		;;
+	upgradetest )
+		upgrade_backup
+        upgrade_test $1
+		upgrade_revoke
+        ;;
+	upgradeback )
+		upgrade_backup
+		;;
+	upgraderevoke )
+		upgrade_revoke
+		;;
     * )
         usage
         ;;
