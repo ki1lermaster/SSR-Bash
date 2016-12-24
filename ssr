@@ -350,6 +350,7 @@ if [[ $choice == 1 ]];then
 	echo "nameserver $ifdns1" > /etc/resolv.conf
 	echo "nameserver $ifdns2" >> /etc/resolv.conf
 	echo 'DNS 服务器已设置为  $ifdns1 $ifdns2'
+	fi
 fi
 
 
