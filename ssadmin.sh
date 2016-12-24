@@ -622,24 +622,7 @@ reset_used () {
 
 
 
-upgrade_main () {
-	
-}
-upgrade_ss () {
-	
-}
-upgrade_test () {
-	
-}
-upgrade_backup () {
-	
-}
-upgrade_revoke () {
-	rm -rf /usr/local/SSR-Bash/ssusers
-	rm -rf /usr/local/SSR-Bash/sstraffic
-	cp /root/ssusers /usr/local/SSR-Bash/ 
-	cp /root/sstraffic /usr/local/SSR-Bash/
-}
+
 
 
 
