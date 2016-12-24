@@ -473,6 +473,7 @@ if [[ $choice == 4 ]];then
 	done
 
 	if [[ $upgradeselect == 1 ]];then
+		bash /usr/local/SSR-Bash/ssadmin.sh stop
 		rm -rf /usr/local/bin/ssr
 		cd /usr/local
 		rm -rf SSR-Bash
@@ -482,12 +483,15 @@ if [[ $choice == 4 ]];then
 	fi 
 	
 	if [[ $upgradeselect == 2 ]];then
+		bash /usr/local/SSR-Bash/ssadmin.sh stop
 		cd /usr/local
 		rm -rf shadowsocks
 		git clone https://github.com/breakwa11/shadowsocks
+		bash /usr/local/SSR-Bash/ssadmin.sh start
 	fi
 	
 	if [[ $upgradeselect == 3 ]];then
+		bash /usr/local/SSR-Bash/ssadmin.sh stop
 		read -p "输入更新到分支： " upgradeadd
 		rm -rf /usr/local/bin/ssr
 		cd /usr/local
@@ -499,17 +503,21 @@ if [[ $choice == 4 ]];then
 	
 	
 	if [[ $upgradeselect == 4 ]];then
+		bash /usr/local/SSR-Bash/ssadmin.sh stop
 		rm -rf /root/ssusers
 		rm -rf /root/sstraffic
 		cp /usr/local/SSR-Bash/ssusers /root/
 		cp /usr/local/SSR-Bash/sstraffic /root/
+		bash /usr/local/SSR-Bash/ssadmin.sh start
 	fi
 	
 	if [[ $upgradeselect == 5 ]];then
+		bash /usr/local/SSR-Bash/ssadmin.sh stop
 		rm -rf /usr/local/SSR-Bash/ssusers
 		rm -rf /usr/local/SSR-Bash/sstraffic
 		cp /root/ssusers /usr/local/SSR-Bash/ 
 		cp /root/sstraffic /usr/local/SSR-Bash/
+		bash /usr/local/SSR-Bash/ssadmin.sh start
 	fi
 	
 fi
