@@ -3,9 +3,9 @@ ShadowsocksR多用户管理脚本
 
 ## 介绍 ##
 一个Shell脚本，集成SSR多用户管理，流量限制，加密更改等基本操作。
-如有任何问题和意见，欢迎加QQ群：277717865
+如有任何问题和意见，欢迎加QQ：158805084
 
-为了防止SSR程序被滥用来免流，已经禁止各类非正常Host以及ML有关端口，愿SSR能够继续担当为用户打开通往世界的大门的工具~
+
 
 ## 功能 ##
 - 一键开启、关闭SSR服务
@@ -28,10 +28,10 @@ ShadowsocksR多用户管理脚本
 - Debian8
 
 ## 安装 ##
-    wget -N --no-check-certificate https://raw.githubusercontent.com/FunctionClub/SSR-Bash/master/install.sh && bash install.sh
+    wget -N --no-check-certificate https://raw.githubusercontent.com/BBenQi/SSR-Bash/master/install.sh && bash install.sh
 
 ## 卸载 ##
-    wget -N --no-check-certificate https://raw.githubusercontent.com/FunctionClub/SSR-Bash/master/uninstall.sh && bash uninstall.sh
+    wget -N --no-check-certificate https://raw.githubusercontent.com/BBenQi/SSR-Bash/master/uninstall.sh && bash uninstall.sh
 
 ## 开源许可 ##
 本程序大部分代码Fork于[ss-bash](https://github.com/hellofwy/ss-bash)，沿用其[MIT License](https://github.com/hellofwy/ss-bash/blob/master/LICENSE)任何基于本脚本的开发，修改，再发布请不要删除版权声明。请务必遵从以上协议，谢谢~
