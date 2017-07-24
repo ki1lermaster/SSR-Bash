@@ -25,7 +25,7 @@ apt-get install language-pack-zh-hans -y
 #Clone Something
 cd /usr/local
 git clone https://github.com/breakwa11/shadowsocks
-git clone https://github.com/FunctionClub/SSR-Bash
+git clone https://github.com/BBenQi/SSR-Bash
 
 #Intall libsodium
 cd /root
@@ -36,12 +36,12 @@ echo "/usr/local/lib" > /etc/ld.so.conf.d/local.conf && ldconfig
 cd ../ && rm -rf libsodium* 
 
 #Install ssr-chkconfig
-wget -N --no-check-certificate -O /etc/init.d/shadowsocksr https://raw.githubusercontent.com/FunctionClub/SSR-Bash/master/ssr-chkconfig
+wget -N --no-check-certificate -O /etc/init.d/shadowsocksr https://raw.githubusercontent.com/BBenQi/SSR-Bash/blob/master/ssr-chkconfig
 chmod +x /etc/init.d/shadowsocksr
 update-rc.d -f shadowsocksr defaults
 
 #Install Softlink
-wget -N --no-check-certificate -O /usr/local/bin/ssr https://raw.githubusercontent.com/FunctionClub/SSR-Bash/master/ssr
+wget -N --no-check-certificate -O /usr/local/bin/ssr https://raw.githubusercontent.com/BBenQi/SSR-Bash/blob/master/ssr
 chmod +x /usr/local/bin/ssr
 
 echo '安装完成！输入 ssr 即可使用本程序~'

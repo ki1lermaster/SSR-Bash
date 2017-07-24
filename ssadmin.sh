@@ -182,7 +182,7 @@ bytes2gb () {
 }
 check_port_range () {
     PORT=$1
-    if (( ($PORT > 0) && ($PORT <= 65535 ) && ($PORT != 137) && ($PORT !=138) && ($PORT != 53) && ($PORT != 80) )); then
+    if ( ($PORT > 0) && ($PORT <= 65535 )); then
         return 0
     else
         return 1
